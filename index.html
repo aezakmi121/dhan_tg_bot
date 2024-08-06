@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dhan Trading Bot</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: var(--tg-theme-bg-color, #ffffff);
+            color: var(--tg-theme-text-color, #000000);
+        }
+        button {
+            background-color: var(--tg-theme-button-color, #3390ec);
+            color: var(--tg-theme-button-text-color, #ffffff);
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dhan Trading Bot</h1>
+    <button onclick="getPositions()">View Positions</button>
+    <button onclick="getBalance()">Check Balance</button>
+    <button onclick="setupTSL()">Set up TSL</button>
+    <div id="result"></div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+
+        function getPositions() {
+            tg.sendData("get_positions");
+            document.getElementById('result').innerHTML = "Fetching positions...";
+        }
+
+        function getBalance() {
+            tg.sendData("get_balance");
+            document.getElementById('result').innerHTML = "Fetching balance...";
+        }
+
+        function setupTSL() {
+            tg.sendData("setup_tsl");
+            document.getElementById('result').innerHTML = "Setting up TSL...";
+        }
+
+        tg.onEvent('mainButtonClicked', function(){
+            tg.sendData("Main button clicked");
+        });
+    </script>
+</body>
+</html>
